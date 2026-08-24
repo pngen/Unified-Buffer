@@ -1,0 +1,12 @@
+build/
+out/
+*.log
+.vs/
+CMakeCache.txt
+CMakeFiles/
+*.obj
+*.pdb
+*.ilk
+.vscode/
+install/
+pkgtest/
