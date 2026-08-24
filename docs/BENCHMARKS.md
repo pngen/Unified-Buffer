@@ -103,7 +103,7 @@ These run only when `UNIFIED_BUFFER_ENABLE_CUDA` found the toolkit and a device 
 - **Pool reuse** mainly reduces the *allocation* latency after a warm-up and reduces address-space churn; it does not
   improve raw copy bandwidth.
 - **Zeroing policy** adds cost on the allocation/reuse path for `ON_ALLOCATE` / `ALWAYS`, and on cross-owner reuse, while
-  `NEVER` and `ON_RELEASE` (as implemented) skip it at allocation time.
+  `NEVER` skips zeroing; `ON_RELEASE`/`ALWAYS` zero pooled backing when it is returned to the pool.
 - **Mapped address** is a discovery, not a copy; mapping cost depends on the domain (host is nearly free, shared/file
   involve the OS).
 - **Concurrent allocation** captures the contention on `pool_mtx_`, `ns_mtx_`, and the registry `shared_mutex`.

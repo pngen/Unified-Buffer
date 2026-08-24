@@ -183,7 +183,7 @@ This ordering guarantees a buffer is never torn between two domains and never lo
 | --- | --- |
 | `NEVER` | Never zero. |
 | `ON_ALLOCATE` | Always zero on allocation. |
-| `ON_RELEASE` | Declared to zero on release; not zeroed at allocation. |
+| `ON_RELEASE` | Zero the backing when it returns to a pool (release). |
 | `ON_CROSS_OWNER_REUSE` | Zero only when a pooled slot is reused by a different namespace than its recorded `last_owner`. |
 | `ALWAYS` | Always zero (allocation and reuse paths). |
 
@@ -192,7 +192,7 @@ The effective policy is the per-request override if `AllocationRequest::zeroing`
 Two notes on what 1.0.0 actually does:
 
 - **Zeroing is applied at allocation time.** `allocate_record` decides `want_zero` from the policy and calls the domain's `zero` on the committed range when true. For `ON_CROSS_OWNER_REUSE`, this happens only when the slot came from the pool AND its recorded owner differs from the requesting namespace.
-- **`ON_RELEASE` is a declared policy value, but the release path in 1.0.0 does not perform a zeroing pass.** The release path returns the backing to the pool or frees it; it does not zero. Treat `ON_RELEASE` as reserved semantics: it is not observed today and choosing it behaves like `NEVER` for the allocation-time decision. If you need deterministic zeroing, use `ON_ALLOCATE` or `ALWAYS`.
+- **`ON_RELEASE` zeroes the backing when it is returned to a pool.** When a buffer that is eligible for pooling is finalized under a namespace with `ON_RELEASE` (or `ALWAYS`) policy, the runtime clears the backing before it is put into the pool, so the next owner cannot observe the previous tenant's bytes. Combined with `ON_CROSS_OWNER_REUSE` / `ALWAYS` zeroing at checkout, `ON_RELEASE` provides secure reuse for pooled memory.
 
 ---
 
