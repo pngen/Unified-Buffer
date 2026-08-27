@@ -291,4 +291,4 @@ The complete public API is defined by the headers under `include/unified_buffer/
 
 ## License
 
-Apache License 2.0. Copyright (c) Summon Software Labs. See [LICENSE](LICENSE).
+Apache License 2.0. Copyright 2026 Summon Software Labs. No telemetry transmission.
