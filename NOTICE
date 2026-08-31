@@ -2,9 +2,7 @@ Unified Buffer
 
 Copyright © Summon Software Labs
 
-Unified Buffer is an open-source, vendor-neutral runtime for governing
-allocation, ownership, mapping, sharing, pooling, reuse, residency, and
-lifecycle across heterogeneous memory domains.
+Unified Buffer is an open-source, vendor-neutral runtime for governing allocation, ownership, mapping, sharing, pooling, reuse, residency, and lifecycle across heterogeneous memory domains.
 
 This product is licensed under the Apache License, Version 2.0. See the
 LICENSE file in this distribution for the full license text.
@@ -15,4 +13,4 @@ running the software.
 
 Unified Buffer accepts contributions from individuals and organizations on the
 terms of the Apache License 2.0 without requiring a Contributor License
-Agreement (CLA). See docs/CONTRIBUTING.md for contribution guidance.
+Agreement (CLA). See CONTRIBUTING.md for contribution guidance.
